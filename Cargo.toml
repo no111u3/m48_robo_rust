@@ -4,6 +4,26 @@ version = "0.1.0"
 authors = ["Boris Vinogradov <no111u3@gmail.com>"]
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+# Configure the build for minimal size
+[profile.dev]
+panic = "abort"
+lto = true
+opt-level = "s"
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+debug = true
+lto = true
+opt-level = "s"
 
 [dependencies]
+panic-halt = "0.2.0"
+avr-device = { version = "0.2.1", features = ["rt"] }
+atmega48p-hal = { path = "/Users/nis/Develop/avr-hal/chips/atmega48p-hal/" }
+avr-hal-generic = { path = "/Users/nis/Develop/avr-hal/avr-hal-generic/" }
+
+[patch.crates-io]
+# XXX: Temporary fix for avr-rust/rust#148
+ufmt = { git = "https://github.com/Rahix/ufmt.git", rev = "12225dc1678e42fecb0e8635bf80f501e24817d9" }
+avr-device = { path = "/Users/nis/Develop/avr-device" }

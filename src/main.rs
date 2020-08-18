@@ -2,4 +2,9 @@
 #![no_std]
 #![no_main]
 
-fn main() {}
+extern crate panic_halt;
+
+#[avr_device::entry]
+fn main() -> ! {
+    loop {}
+}
