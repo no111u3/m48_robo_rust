@@ -76,7 +76,9 @@ dependencies = [
  "atmega48p-hal",
  "avr-device",
  "avr-hal-generic",
+ "nb 0.1.3",
  "panic-halt",
+ "ufmt",
 ]
 
 [[package]]

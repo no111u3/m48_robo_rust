@@ -18,6 +18,8 @@ lto = true
 opt-level = "s"
 
 [dependencies]
+ufmt = "0.1.0"
+nb = "0.1.2"
 panic-halt = "0.2.0"
 avr-device = { version = "0.2.1", features = ["rt"] }
 atmega48p-hal = { path = "/Users/nis/Develop/avr-hal/chips/atmega48p-hal/" }
