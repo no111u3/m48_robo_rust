@@ -31,11 +31,32 @@ fn main() -> ! {
 
     ufmt::uwriteln!(
         &mut serial,
-        "for x = 4.5 and y = 2.9 x + y * 1.5 = {}.{}\r",
-        z.floor() as i32,
-        (z.fract() * 100.0) as i32
+        "for x = 4.5 and y = 2.9 x + y * 1.5 = {}\r",
+        UFloat(z)
     )
     .void_unwrap();
 
     loop {}
+}
+
+struct UFloat(f32);
+
+use ufmt::{uDisplay, uWrite, uwrite, Formatter};
+
+impl uDisplay for UFloat {
+    fn fmt<W>(&self, f: &mut Formatter<'_, W>) -> Result<(), W::Error>
+    where
+        W: uWrite + ?Sized,
+    {
+        match self.0 {
+            x if x.is_infinite() && x.is_sign_negative() => uwrite!(f, "-inf"),
+            x if x.is_infinite() => uwrite!(f, "inf"),
+            x if x.is_nan() => uwrite!(f, "nan"),
+            x => uwrite!(f, "{}.{}", x.floor() as i32, get_frac(x)),
+        }
+    }
+}
+
+fn get_frac(f: f32) -> u32 {
+    (f.abs().fract() * 10000.0) as u32
 }
