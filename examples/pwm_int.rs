@@ -4,14 +4,14 @@
 
 extern crate panic_halt;
 
-use atmega48p_hal::{atmega48p::Peripherals, port::*, prelude::*, pwm::*};
+use m48_robo_rust::{hal::port, prelude::*, pwm};
 
-static mut PIN: Option<portb::PB1<mode::Pwm<Timer1Pwm>>> = None;
+static mut PIN: Option<port::portb::PB1<port::mode::Pwm<pwm::Timer1Pwm>>> = None;
 static mut DIRECTION: bool = false;
 
 #[avr_device::entry]
 fn main() -> ! {
-    let dp = Peripherals::take().unwrap();
+    let dp = m48_robo_rust::Peripherals::take().unwrap();
 
     let mut portb = dp.PORTB.split();
 
@@ -19,7 +19,7 @@ fn main() -> ! {
 
     tc1.timsk1.write(|w| w.toie1().set_bit());
 
-    let mut timer = Timer1Pwm::new(tc1, Prescaler::Prescale8);
+    let mut timer = pwm::Timer1Pwm::new(tc1, pwm::Prescaler::Prescale8);
 
     let mut pin = portb.pb1.into_output(&mut portb.ddr).into_pwm(&mut timer);
 

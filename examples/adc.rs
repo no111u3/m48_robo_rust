@@ -4,17 +4,15 @@
 
 extern crate panic_halt;
 
-use atmega48p_hal::{adc::*, atmega48p::Peripherals, clock, port::*, prelude::*, usart};
+use m48_robo_rust::{adc, prelude::*};
 
-type Serial<IMODE> = usart::Usart0<clock::MHz1, IMODE>;
-
-#[avr_device::entry]
+#[m48_robo_rust::entry]
 fn main() -> ! {
-    let dp = Peripherals::take().unwrap();
+    let dp = m48_robo_rust::Peripherals::take().unwrap();
 
     let mut pinsd = dp.PORTD.split();
 
-    let mut serial = Serial::new(
+    let mut serial = m48_robo_rust::Serial::new(
         dp.USART0,
         pinsd.pd0,
         pinsd.pd1.into_output(&mut pinsd.ddr),
@@ -23,11 +21,11 @@ fn main() -> ! {
 
     ufmt::uwriteln!(&mut serial, "ADC example ATmega48P!\r").void_unwrap();
 
-    let mut adc = Adc::new(dp.ADC, Default::default());
+    let mut adc = adc::Adc::new(dp.ADC, Default::default());
 
     let (vbg, gnd): (u16, u16) = (
-        nb::block!(adc.read(&mut channel::Vbg)).void_unwrap(),
-        nb::block!(adc.read(&mut channel::Gnd)).void_unwrap(),
+        nb::block!(adc.read(&mut adc::channel::Vbg)).void_unwrap(),
+        nb::block!(adc.read(&mut adc::channel::Gnd)).void_unwrap(),
     );
 
     ufmt::uwriteln!(&mut serial, "Vbandgap: {}\r", vbg).void_unwrap();
@@ -56,13 +54,6 @@ fn main() -> ! {
         }
         ufmt::uwriteln!(&mut serial, "\r").void_unwrap();
 
-        small_delay();
-    }
-}
-
-/// A small busy loop.
-fn small_delay() {
-    for _ in 0..1000 {
-        unsafe { llvm_asm!("" :::: "volatile") }
+        m48_robo_rust::delay_ms(100);
     }
 }

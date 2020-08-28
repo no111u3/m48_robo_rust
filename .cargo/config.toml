@@ -1,7 +1,6 @@
 [build]
 target = "avr-atmega48p.json"
 
-
 [target.'cfg(target_arch = "avr")']
 runner = "./m48-runner.sh"
 

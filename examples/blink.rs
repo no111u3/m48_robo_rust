@@ -1,14 +1,13 @@
-#![feature(llvm_asm)]
 #![no_std]
 #![no_main]
 
 extern crate panic_halt;
 
-use atmega48p_hal::{atmega48p::Peripherals, port::*, prelude::*};
+use m48_robo_rust::prelude::*;
 
-#[avr_device::entry]
+#[m48_robo_rust::entry]
 fn main() -> ! {
-    let dp = Peripherals::take().unwrap();
+    let dp = m48_robo_rust::Peripherals::take().unwrap();
 
     let mut portb = dp.PORTB.split();
 
@@ -17,17 +16,10 @@ fn main() -> ! {
     loop {
         pb0.set_high().void_unwrap();
 
-        small_delay();
+        m48_robo_rust::delay_ms(200);
 
         pb0.set_low().void_unwrap();
 
-        small_delay();
-    }
-}
-
-/// A small busy loop.
-fn small_delay() {
-    for _ in 0..10000 {
-        unsafe { llvm_asm!("" :::: "volatile") }
+        m48_robo_rust::delay_ms(200);
     }
 }

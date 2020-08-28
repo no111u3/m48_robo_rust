@@ -1,13 +1,11 @@
 #![no_std]
 #![no_main]
 
-use atmega48p_hal::{atmega48p::Peripherals, clock, port::*, prelude::*, usart};
-
-type Serial<IMODE> = usart::Usart0<clock::MHz1, IMODE>;
+use m48_robo_rust::{hal::port::mode, prelude::*};
 
 #[panic_handler]
 fn panic(info: &core::panic::PanicInfo) -> ! {
-    let mut serial: Serial<mode::Floating> =
+    let mut serial: m48_robo_rust::Serial<mode::Floating> =
         unsafe { core::mem::MaybeUninit::uninit().assume_init() };
 
     ufmt::uwriteln!(&mut serial, "Firmware panic!\r").void_unwrap();
@@ -26,13 +24,13 @@ fn panic(info: &core::panic::PanicInfo) -> ! {
     loop {}
 }
 
-#[avr_device::entry]
+#[m48_robo_rust::entry]
 fn main() -> ! {
-    let dp = Peripherals::take().unwrap();
+    let dp = m48_robo_rust::Peripherals::take().unwrap();
 
     let mut pinsd = dp.PORTD.split();
 
-    let mut serial = Serial::new(
+    let mut serial = m48_robo_rust::Serial::new(
         dp.USART0,
         pinsd.pd0,
         pinsd.pd1.into_output(&mut pinsd.ddr),

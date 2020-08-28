@@ -3,28 +3,24 @@
 
 extern crate panic_halt;
 
-use atmega48p_hal::{atmega48p::Peripherals, clock, i2c, port::*, prelude::*, usart};
+use m48_robo_rust::{hal::i2c, prelude::*};
 
-type Serial<IMODE> = usart::Usart0<clock::MHz1, IMODE>;
-
-pub type I2c<M> = i2c::I2c<clock::MHz1, M>;
-
-#[avr_device::entry]
+#[m48_robo_rust::entry]
 fn main() -> ! {
-    let dp = Peripherals::take().unwrap();
+    let dp = m48_robo_rust::Peripherals::take().unwrap();
 
     let mut pinsd = dp.PORTD.split();
 
     let mut pinsc = dp.PORTC.split();
 
-    let mut serial = Serial::new(
+    let mut serial = m48_robo_rust::Serial::new(
         dp.USART0,
         pinsd.pd0,
         pinsd.pd1.into_output(&mut pinsd.ddr),
         2400,
     );
 
-    let mut i2c = I2c::new(
+    let mut i2c = m48_robo_rust::I2c::new(
         dp.TWI,
         pinsc.pc4.into_pull_up_input(&mut pinsc.ddr),
         pinsc.pc5.into_pull_up_input(&mut pinsc.ddr),

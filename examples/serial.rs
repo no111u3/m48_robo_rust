@@ -3,17 +3,15 @@
 
 extern crate panic_halt;
 
-use atmega48p_hal::{atmega48p::Peripherals, clock, port::*, prelude::*, usart};
+use m48_robo_rust::prelude::*;
 
-type Serial<IMODE> = usart::Usart0<clock::MHz1, IMODE>;
-
-#[avr_device::entry]
+#[m48_robo_rust::entry]
 fn main() -> ! {
-    let dp = Peripherals::take().unwrap();
+    let dp = m48_robo_rust::Peripherals::take().unwrap();
 
     let mut pinsd = dp.PORTD.split();
 
-    let mut serial = Serial::new(
+    let mut serial = m48_robo_rust::Serial::new(
         dp.USART0,
         pinsd.pd0,
         pinsd.pd1.into_output(&mut pinsd.ddr),
