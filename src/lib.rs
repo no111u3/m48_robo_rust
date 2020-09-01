@@ -20,7 +20,7 @@ pub use atmega48p_hal::prelude;
 ///
 /// [delay_ms]: fn.delay_ms.html
 /// [delay_us]: fn.delay_us.html
-pub type Delay = hal::delay::Delay<hal::clock::MHz16>;
+pub type Delay = hal::delay::Delay<hal::clock::MHz1>;
 
 /// Wait (busy spin) for `ms` milliseconds
 pub fn delay_ms(ms: u16) {
