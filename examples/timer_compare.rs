@@ -91,6 +91,7 @@ unsafe fn TIMER1_COMPA() {
     NUM = if NUM < 9 { NUM + 1 } else { 0 };
 }
 
+#[inline(always)]
 fn apply_segments(leds: &mut [Pin<mode::Output>; 7], segments: u8) {
     for i in 0..leds.len() {
         if segments & 1u8 << i != 0 {
