@@ -87,12 +87,14 @@ fn main() -> ! {
 
 #[avr_device::interrupt(atmega48p)]
 unsafe fn TIMER1_COMPA() {
-    apply_segments(LEDS.as_mut().unwrap(), NUMS[NUM as usize]);
+    let num_repr = NUMS[NUM as usize];
+    apply_segments(num_repr);
     NUM = if NUM < 9 { NUM + 1 } else { 0 };
 }
 
 #[inline(always)]
-fn apply_segments(leds: &mut [Pin<mode::Output>; 7], segments: u8) {
+fn apply_segments(segments: u8) {
+    let leds = unsafe { LEDS.as_mut().unwrap() };
     for i in 0..leds.len() {
         if segments & 1u8 << i != 0 {
             leds[i].set_high().void_unwrap();
