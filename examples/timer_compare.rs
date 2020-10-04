@@ -11,9 +11,9 @@ static mut NUM: u8 = 0;
 
 const SEG_A: u8 = 1u8 << 0;
 const SEG_B: u8 = 1u8 << 1;
-const SEG_C: u8 = 1u8 << 4;
+const SEG_C: u8 = 1u8 << 2;
 const SEG_D: u8 = 1u8 << 3;
-const SEG_E: u8 = 1u8 << 2;
+const SEG_E: u8 = 1u8 << 4;
 const SEG_F: u8 = 1u8 << 5;
 const SEG_G: u8 = 1u8 << 6;
 
@@ -44,6 +44,8 @@ fn main() -> ! {
     let pc4 = portc.pc4.into_output(&mut portc.ddr);
     let pd3 = portd.pd3.into_output(&mut portd.ddr);
     let pd4 = portd.pd4.into_output(&mut portd.ddr);
+
+    let mut dp_seg = portd.pd2.into_output(&mut portd.ddr);
 
     unsafe {
         LEDS = Some([
@@ -82,21 +84,24 @@ fn main() -> ! {
         avr_device::interrupt::enable();
     }
 
-    loop {}
+    loop {
+        dp_seg.toggle().void_unwrap();
+        delay_ms(250);
+    }
 }
 
 #[avr_device::interrupt(atmega48p)]
 unsafe fn TIMER1_COMPA() {
     let num_repr = NUMS[NUM as usize];
-    apply_segments(num_repr);
     NUM = if NUM < 9 { NUM + 1 } else { 0 };
+    apply_segments(num_repr);
 }
 
 #[inline(always)]
 fn apply_segments(segments: u8) {
     let leds = unsafe { LEDS.as_mut().unwrap() };
     for i in 0..leds.len() {
-        if segments & 1u8 << i != 0 {
+        if segments & (1u8 << i) != 0 {
             leds[i].set_high().void_unwrap();
         } else {
             leds[i].set_low().void_unwrap();
