@@ -3,6 +3,7 @@
 [[package]]
 name = "atmega48p-hal"
 version = "0.1.0"
+source = "git+https://github.com/Rahix/avr-hal.git#99fdf4dfd46e6d4f1838a08f5a137cedb91f3600"
 dependencies = [
  "avr-device",
  "avr-hal-generic",
@@ -34,6 +35,7 @@ dependencies = [
 [[package]]
 name = "avr-hal-generic"
 version = "0.1.0"
+source = "git+https://github.com/Rahix/avr-hal.git#99fdf4dfd46e6d4f1838a08f5a137cedb91f3600"
 dependencies = [
  "avr-device",
  "cfg-if",

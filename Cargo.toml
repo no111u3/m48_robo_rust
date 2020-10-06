@@ -29,8 +29,8 @@ panic-halt = "0.2.0"
 ssd1306 = "0.4.0"
 display-interface = "0.4.0"
 avr-device = { version = "0.2.1", features = ["rt"] }
-atmega48p-hal = { path = "/Users/nis/Develop/avr-hal/chips/atmega48p-hal/" }
-avr-hal-generic = { path = "/Users/nis/Develop/avr-hal/avr-hal-generic/" }
+atmega48p-hal = "0.1.0"
+avr-hal-generic = "0.1.0"
 
 [dependencies.embedded-hal]
 version = "0.2.3"
@@ -39,3 +39,6 @@ features = ["unproven"]
 [patch.crates-io]
 # XXX: Temporary fix for avr-rust/rust#148
 ufmt = { git = "https://github.com/Rahix/ufmt.git", rev = "12225dc1678e42fecb0e8635bf80f501e24817d9" }
+
+atmega48p-hal = { git = "https://github.com/Rahix/avr-hal.git" }
+avr-hal-generic = { git = "https://github.com/Rahix/avr-hal.git" }
