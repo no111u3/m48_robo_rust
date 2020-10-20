@@ -8,6 +8,8 @@ pub use hal::entry;
 //mod pins;
 //pub use crate::pins::*;
 
+pub mod mmio;
+
 pub use crate::atmega48p::Peripherals;
 pub use atmega48p_hal::atmega48p;
 pub use atmega48p_hal::prelude;
