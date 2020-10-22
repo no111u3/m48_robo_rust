@@ -1,6 +1,11 @@
 //! Bit operations and helper traits
 
-use core::ops::{BitAnd, BitOr, BitOrAssign, Not, Shl, Shr};
+use crate::mmio::RegisterLongName;
+
+use core::{
+    marker::PhantomData,
+    ops::{BitAnd, BitOr, BitOrAssign, Not, Shl, Shr},
+};
 
 /// IntLike properties needed to read/write/modify/clear a register.
 pub trait IntLike:
@@ -59,4 +64,22 @@ impl IntLike for u64 {
     fn ones() -> Self {
         Self::MAX
     }
+}
+
+/// Specific section of a register.
+#[derive(Copy, Clone)]
+pub struct Field<T: IntLike, R: RegisterLongName> {
+    mask: T,
+    pub shift: usize,
+    associated_register: PhantomData<R>,
+}
+
+/// Values for the specific register fields.
+// For the FieldValue, the masks and values are shifted into their actual
+// location in the register.
+#[derive(Copy, Clone)]
+pub struct FieldValue<T: IntLike, R: RegisterLongName> {
+    mask: T,
+    pub value: T,
+    associated_register: PhantomData<R>,
 }
