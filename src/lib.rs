@@ -1,4 +1,6 @@
 #![no_std]
+// Used by mmio module
+#![feature(const_fn)]
 
 pub extern crate atmega48p_hal as hal;
 /// See [`avr_device::entry`](https://docs.rs/avr-device/latest/avr_device/attr.entry.html).
