@@ -3,7 +3,7 @@
 [[package]]
 name = "atmega48p-hal"
 version = "0.1.0"
-source = "git+https://github.com/Rahix/avr-hal.git#99fdf4dfd46e6d4f1838a08f5a137cedb91f3600"
+source = "git+https://github.com/Rahix/avr-hal.git#0c6cf1675c2724354f1adeaeee69992acd371e80"
 dependencies = [
  "avr-device",
  "avr-hal-generic",
@@ -11,9 +11,9 @@ dependencies = [
 
 [[package]]
 name = "avr-device"
-version = "0.2.2"
+version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4f90e107f4ecabe7158d79b8671e53f9fd342ec3d225bef00b94259652437b74"
+checksum = "c40762573452193b6b7870342f8d5bd60f3c92e1e85a39030c427e8b1cb2e3c0"
 dependencies = [
  "avr-device-macros",
  "bare-metal",
@@ -23,9 +23,9 @@ dependencies = [
 
 [[package]]
 name = "avr-device-macros"
-version = "0.2.2"
+version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7173b28cd7dab80ad2a30269688de29a4b1e542923e805cffc4ef471a2e0407d"
+checksum = "eda8bf2cf652ffc2dd5bda2d1a7e8171c08ce296a01f8cf9e4791c48e86e34bd"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -35,7 +35,7 @@ dependencies = [
 [[package]]
 name = "avr-hal-generic"
 version = "0.1.0"
-source = "git+https://github.com/Rahix/avr-hal.git#99fdf4dfd46e6d4f1838a08f5a137cedb91f3600"
+source = "git+https://github.com/Rahix/avr-hal.git#0c6cf1675c2724354f1adeaeee69992acd371e80"
 dependencies = [
  "avr-device",
  "cfg-if",
@@ -147,9 +147,9 @@ dependencies = [
 
 [[package]]
 name = "micromath"
-version = "1.0.1"
+version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cedf8513604f9696e9ed523511dd27e7ccb5502e414958f1669e492c7d85dcf1"
+checksum = "be00a244d4394124986da477e8b2814dcb7995ab238817d9037bc336c4b0b843"
 
 [[package]]
 name = "nb"
@@ -174,9 +174,9 @@ checksum = "de96540e0ebde571dc55c73d60ef407c653844e6f9a1e2fdbd40c07b9252d812"
 
 [[package]]
 name = "paste"
-version = "1.0.0"
+version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f6ddc8e145de01d9180ac7b78b9676f95a9c2447f6a88b2c2a04702211bc5d71"
+checksum = "ba7ae1a2180ed02ddfdb5ab70c70d596a26dd642e097bb6fe78b1bde8588ed97"
 
 [[package]]
 name = "proc-macro-hack"
@@ -186,9 +186,9 @@ checksum = "99c605b9a0adc77b7211c6b1f722dcb613d68d66859a44f3d485a6da332b0598"
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.19"
+version = "1.0.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "04f5f085b5d71e2188cb8271e5da0161ad52c3f227a661a3c135fdf28e258b12"
+checksum = "1e0704ee1a7e00d7bb417d0770ea303c1bccbabf0ef1667dae92b5967f5f8a71"
 dependencies = [
  "unicode-xid",
 ]
@@ -242,9 +242,9 @@ dependencies = [
 
 [[package]]
 name = "syn"
-version = "1.0.38"
+version = "1.0.46"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e69abc24912995b3038597a7a593be5053eb0fb44f3cc5beec0deb421790c1f4"
+checksum = "5ad5de3220ea04da322618ded2c42233d02baca219d6f160a3e9c87cda16c942"
 dependencies = [
  "proc-macro2",
  "quote",
