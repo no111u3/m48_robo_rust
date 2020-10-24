@@ -12,6 +12,9 @@ pub use hal::entry;
 
 pub mod mmio;
 
+// MMIO based device implementation.
+pub mod dev;
+
 pub use crate::atmega48p::Peripherals;
 pub use atmega48p_hal::atmega48p;
 pub use atmega48p_hal::prelude;
